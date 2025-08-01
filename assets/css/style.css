@@ -1,0 +1,44 @@
+.navbar, footer{
+ 
+    background: linear-gradient(to right, #ffed4a, #f26522);
+    /* Fallback for older browsers */
+    background: linear-gradient(to right, #ffed4a, #f26522) no-repeat fixed center;
+    /* Utilizar el color de advertencia como superposición transparente */
+    background-color: rgba(255, 193, 7, 0.5);
+    
+
+}
+
+.navbar-brand, span{
+    font-family: 'Pacifico', cursive;
+    
+
+}
+
+.navbar-brand, h1, h2, h3, h4, h5, label, footer, #registrar {
+    color: rgb(99, 94, 80);
+}
+
+h1, h2, h3{
+    font-family: 'Libre Baskerville', serif;
+}
+
+.navbar-nav{
+    margin-right: 50px;
+}
+
+
+.container_login, .container_signup, .container_posts{
+    padding: 1.25rem; 
+    margin-top: 5rem;  
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    
+}
+
+.img-fluid{
+    width: 4rem;
+    height: 4rem;
+}
+
