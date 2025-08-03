@@ -4,6 +4,7 @@
   --secondary-gradient: linear-gradient(135deg, #ffed4a 0%, #f26522 100%);
   --secondary: #c7ccd1;
   --accent-color: #505051;
+  --accent-color-light: color-mix(in srgb, var(--accent-color) 70%, white);
   --accent-gradient: linear-gradient(135deg, #6a6a6c 0%, #505051 100%);
   --text-dark: #2c3e50;
   --text-light: #6c757d;
@@ -261,6 +262,24 @@ h6 {
 
 .img-fluid:hover {
   transform: scale(1.05);
+}
+
+.pagination .page-link {
+  color: var(--accent-color-light);
+  border-color: var(--accent-color-light);
+  background-color: white;
+  transition: all 0.2s;
+}
+
+.pagination .page-link:hover {
+  background-color: var(--accent-color-light);
+  color: white;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: var(--accent-color-light);
+  border-color: var(--accent-color-light);
+  color: white;
 }
 
 /* Footer */

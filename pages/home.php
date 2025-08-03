@@ -1,15 +1,22 @@
 <?php
 
-// --- INICIO DE LA CONFIGURACIÓN ---
-// Se incluyen los ficheros de configuración y helpers
 require_once __DIR__ . '/../config/config.php';
 require_once __DIR__ . '/../helpers.php';
 
-// Se define la ruta al fichero CSV y se obtienen las publicaciones
-// NOTA: Se asume que el CSV ahora tiene las columnas: imagen, titulo, descripcion, autor, fecha
-$csvFile = BASE_PATH . '/pages/posts.csv';
-$publicaciones = obtenerPublicaciones($csvFile);
-// --- FIN DE LA CONFIGURACIÓN ---
+$publicaciones = obtenerPublicaciones($csvPosts);
+
+// Paginación 
+$porPagina = 3;
+$totalPublicaciones = count($publicaciones);
+$paginaActual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+$paginaActual = max($paginaActual, 1); // evita valores < 1
+
+$totalPaginas = ceil($totalPublicaciones / $porPagina);
+$inicio = ($paginaActual - 1) * $porPagina;
+
+// Reducir array de publicaciones para mostrar solo las correspondientes
+$publicacionesMostradas = array_slice($publicaciones, $inicio, $porPagina);
+
 
 ?>
 
@@ -26,27 +33,20 @@ $publicaciones = obtenerPublicaciones($csvFile);
             </p>
         </div>
 
-        <!-- Subtítulo -->
         <h2 class="text-center mb-4">Publicaciones Recientes</h2>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 g-4 contenedor-publicaciones" id="publicaciones">
 
-        <!-- Contenedor de todas las publicaciones -->
-        <!-- MEJORA: Ajustado para mostrar 3 columnas en pantallas medianas y grandes -->
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 g-4 contenedor-publicaciones">
-            
             <?php
-            // Se recorre el array de publicaciones para generar cada tarjeta dinámicamente
-            foreach ($publicaciones as $publicacion) {
-                // --- Formateo de la fecha para mayor legibilidad ---
+            foreach ($publicacionesMostradas as $publicacion) {
                 $fechaFormateada = 'Fecha no disponible';
                 if (!empty($publicacion["fecha"])) {
                     $timestamp = strtotime($publicacion["fecha"]);
                     if ($timestamp) {
-                        // Se requiere que la extensión intl de PHP esté habilitada
                         $formatter = new IntlDateFormatter('es_ES', IntlDateFormatter::LONG, IntlDateFormatter::NONE);
                         $fechaFormateada = $formatter->format($timestamp);
                     }
                 }
-                
+
                 // Se escapa el contenido para seguridad
                 $imagen = htmlspecialchars($publicacion['imagen'], ENT_QUOTES, 'UTF-8');
                 $titulo = htmlspecialchars($publicacion['titulo'], ENT_QUOTES, 'UTF-8');
@@ -63,7 +63,6 @@ $publicaciones = obtenerPublicaciones($csvFile);
                             <h5 class="card-title">{$titulo}</h5>
                             <p class="card-text">{$descripcion}</p>
 
-                            <!-- Contenedor para metadatos (autor y fecha) que se alinea al fondo -->
                             <div class="mt-auto pt-3 border-top">
                                 <p class="card-text mb-1">
                                     <small class="text-muted d-flex align-items-center">
@@ -88,7 +87,45 @@ $publicaciones = obtenerPublicaciones($csvFile);
 
         <!-- Paginación -->
         <nav class="mt-5" aria-label="Paginación de publicaciones">
-            <ul class="pagination justify-content-center" id="paginacion"></ul>
+            <ul class="pagination justify-content-center">
+                <?php if ($paginaActual > 1): ?>
+                    <li class="page-item">
+                        <a class="page-link" href="?pagina=<?= $paginaActual - 1 ?>#publicaciones">
+                            <i class="fas fa-chevron-left"></i>
+                        </a>
+                    </li>
+                <?php endif; ?>
+
+                <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
+                    <li class="page-item <?= $i === $paginaActual ? 'active' : '' ?>">
+                        <a class="page-link" href="?pagina=<?= $i ?>#publicaciones"><?= $i ?></a>
+                    </li>
+                <?php endfor; ?>
+
+                <?php if ($paginaActual < $totalPaginas): ?>
+                    <li class="page-item">
+                        <a class="page-link" href="?pagina=<?= $paginaActual + 1 ?>#publicaciones">
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </li>
+                <?php endif; ?>
+            </ul>
         </nav>
     </div>
 </section>
+
+
+<?php include BASE_PATH . '/includes/footer.php'; ?>
+
+<script>
+    $(document).ready(function() {
+        if (window.location.hash === '#publicaciones') {
+            var $publicaciones = $('#publicaciones');
+            if ($publicaciones.length) {
+                $('html, body').animate({
+                    scrollTop: $publicaciones.offset().top
+                }, 100);
+            }
+        }
+    });
+</script>

@@ -5,15 +5,14 @@ require_once __DIR__ . '/../../helpers.php';
 
 $page_title = "Mi Perfil";
 $page_css = "perfil.css";
-$csvFile = BASE_PATH . '/pages/posts.csv';
-$publicacionesUsuario = obtenerPublicacionesUsuario($csvFile, $_SESSION["usuario"]);
+$publicacionesUsuario = obtenerPublicacionesUsuario($csvPosts , $_SESSION["usuario"]);
 $totalPublicaciones = count($publicacionesUsuario) > 0 ? count($publicacionesUsuario) : 0;
 $totalLikes = 0;
 $totalComentarios = 0;
 
 // Comprobamos si el usuario ha iniciado sesión
 if (isset($_SESSION['usuario'])) {
-    $usuarios = fopen("usuarios.csv", "r");
+    $usuarios = fopen($csvUsers, "r");
     while (!feof($usuarios)) {
         $usuario = fgetcsv($usuarios);
         if ($usuario[3] === $_SESSION["usuario"]) {
@@ -202,7 +201,7 @@ include BASE_PATH . '/includes/header.php';
     <!-- Navegación -->
     <div class="profile-navigation text-center mt-5">
         <div class="navigation-buttons">
-            <a href="<?= BASE_URL ?>index.php" class="btn me-3">
+            <a href="<?= BASE_URL ?>index.php" class="btn btn-outline-primary me-3 principal">
                 <i class="fas fa-home me-2"></i>Inicio
             </a>
             <a href="logout.php" class="btn btn-outline-danger">

@@ -6,8 +6,8 @@ $page_title = "Iniciar Sesión";
 $page_css = "login.css";
 
 if (isset($_POST['submit'])) {
-    if (is_file('usuarios.csv')) {
-        $usuarios = file('usuarios.csv');
+    if (is_file($csvUsers)) {
+        $usuarios = file($csvUsers);
         foreach ($usuarios as $usuario) {
             $datos = explode(',', $usuario);
             if (trim($datos[3]) == trim($_POST['usuario']) && password_verify($_POST['contrasena'], trim($datos[4]))) {

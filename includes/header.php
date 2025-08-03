@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../config/config.php';
 $postear = isset($_SESSION['usuario']) ? BASE_URL . 'pages/posts.php' : BASE_URL . 'pages/security/login.php';
+$favicon = BASE_URL . 'assets/icons/cheese.ico';
 ?>
 
 <!DOCTYPE html>
@@ -9,6 +10,7 @@ $postear = isset($_SESSION['usuario']) ? BASE_URL . 'pages/posts.php' : BASE_URL
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="<?= htmlspecialchars($favicon, ENT_QUOTES, 'UTF-8') ?>" type="image/x-icon">
     <title><?= isset($page_title) ? $page_title . ' - ' : '' ?>Mundo Queso</title>
 
     <!-- Bootstrap CSS -->

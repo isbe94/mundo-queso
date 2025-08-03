@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
 
     // Manejo de imagen
     if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
-        $directorioSubida = BASE_PATH . '/assets/uploads/';
+        $directorioSubida = BASE_PATH . '/assets/img/';
         if (!file_exists($directorioSubida)) {
             mkdir($directorioSubida, 0755, true);
         }
@@ -32,13 +32,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
     }
 
     // Guardar en CSV
-    $archivoCSV = BASE_PATH . '/pages/posts.csv';
-    if (!file_exists(dirname($archivoCSV))) {
-        mkdir(dirname($archivoCSV), 0755, true);
+    if (!file_exists(dirname($csvPosts))) {
+        mkdir(dirname($csvPosts), 0755, true);
     }
 
     $fila = [$fecha, $usuario, $titulo, $descripcion, $imagenNombre, $totalLikes, $totalComentarios];
-    $f = fopen($archivoCSV, 'a');
+    $f = fopen($csvPosts, 'a');
     fputcsv($f, $fila);
     fclose($f);
 
@@ -62,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
                     <div class="form-group">
                         <label for="imagen" class="form-label fw-semibold">Imagen de la receta</label>
                         <div class="mb-3 border rounded p-2 text-center shadow-sm bg-light">
-                            <img src="<?= BASE_URL ?>assets/img/img.jpg" class="img-fluid rounded" alt="Vista previa" style="max-height: 200px;">
+                            <img id="preview" src="<?= BASE_URL ?>assets/img/img.jpg" class="img-fluid rounded" alt="Vista previa" style="max-height: 200px;">
                         </div>
                         <input type="file" name="imagen" id="imagen" class="form-control">
                     </div>
@@ -81,13 +80,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
                 </div>
             </div>
 
-            <div class="text-center mt-5">
-                <button type="submit" name="submit" class="btn btn-lg btn-primary px-5 shadow">
+            <div class="text-center mt-5 d-flex justify-content-center gap-3">
+                <button type="submit" name="submit" class="btn btn-primary px-5 shadow">
                     Publicar
                 </button>
+                <a href="<?= BASE_URL ?>index.php" class="btn btn-danger px-5 shadow">
+                    Cancelar
+                </a>
             </div>
+
         </div>
     </form>
 </div>
 
 <?php include BASE_PATH . '/includes/footer.php'; ?>
+
+<script>
+    $(document).ready(function() {
+        $('#imagen').on('change', function() {
+            const archivo = this.files[0];
+            if (archivo) {
+                const lector = new FileReader();
+                lector.onload = function(e) {
+                    $('#preview').attr('src', e.target.result);
+                };
+                lector.readAsDataURL(archivo);
+            }
+        });
+    });
+</script>

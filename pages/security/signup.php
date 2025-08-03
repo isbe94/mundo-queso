@@ -66,8 +66,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $usuarioExiste = false;
         $correoExiste = false;
 
-        if (is_file('usuarios.csv')) {
-            $usuarios = file('usuarios.csv');
+        if (is_file($csvUsers)) {
+            $usuarios = file($csvUsers);
             foreach ($usuarios as $u) {
                 $datos = explode(',', trim($u));
                 if (isset($datos[3]) && $datos[3] == $usuario) {
@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if (!$usuarioExiste && !$correoExiste) {
             $contraseña_hash = password_hash($contrasena, PASSWORD_DEFAULT);
-            $usuarios_file = fopen('usuarios.csv', 'a');
+            $usuarios_file = fopen($csvUsers, 'a');
             fputcsv($usuarios_file, array($nombre, $apellidos, $correo, $usuario, $contraseña_hash));
             fclose($usuarios_file);
 
