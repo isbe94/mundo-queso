@@ -114,9 +114,6 @@ $publicacionesMostradas = array_slice($publicaciones, $inicio, $porPagina);
     </div>
 </section>
 
-
-<?php include BASE_PATH . '/includes/footer.php'; ?>
-
 <script>
     $(document).ready(function() {
         if (window.location.hash === '#publicaciones') {
