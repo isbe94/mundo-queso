@@ -3,14 +3,12 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 session_start();
 
-isset($_SESSION['usuario']) ? $postear = 'posts.php' : $postear = 'security/login.php';
+require_once __DIR__ . '/config/config.php';
 
-include 'includes/header.php';
+isset($_SESSION['usuario']) ? $postear = 'pages/posts.php' : $postear = 'pages/security/login.php';
 
-include 'includes/navbar.php';
-
-include 'pages/home.php';
-
-include 'includes/footer.php'
-
-    ?>
+// __DIR__ para asegurar que siempre se referencie bien desde cualquier lugar
+include __DIR__ . '/includes/header.php';
+include __DIR__ . '/pages/home.php';
+include __DIR__ . '/includes/footer.php';
+?>
