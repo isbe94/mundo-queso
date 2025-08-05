@@ -293,7 +293,7 @@ h6 {
 .footer-main {
   background: rgba(254, 213, 32, 0.7);
   color: var(--accent-color);
-  margin-top: auto;
+  margin-top: 4rem;
   font-size: 0.95rem;
 }
 

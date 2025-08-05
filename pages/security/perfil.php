@@ -197,18 +197,6 @@ include BASE_PATH . '/includes/header.php';
             </div>
         </div>
     </div>
-
-    <!-- Navegación -->
-    <div class="profile-navigation text-center mt-5">
-        <div class="navigation-buttons">
-            <a href="<?= BASE_URL ?>index.php" class="btn btn-outline-primary me-3 principal">
-                <i class="fas fa-home me-2"></i>Inicio
-            </a>
-            <a href="logout.php" class="btn btn-outline-danger">
-                <i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión
-            </a>
-        </div>
-    </div>
 </div>
 
 <?php include BASE_PATH . '/includes/footer.php'; ?>
