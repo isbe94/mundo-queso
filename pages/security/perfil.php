@@ -10,7 +10,7 @@ $totalPublicaciones = count($publicacionesUsuario) > 0 ? count($publicacionesUsu
 $totalLikes = 0;
 $totalComentarios = 0;
 
-// Comprobamos si el usuario ha iniciado sesión
+// Comprueba si el usuario ha iniciado sesión
 if (isset($_SESSION['usuario'])) {
     $usuarios = fopen($csvUsers, "r");
     while (!feof($usuarios)) {
@@ -24,7 +24,7 @@ if (isset($_SESSION['usuario'])) {
     }
     fclose($usuarios);
 } else {
-    // Redireccionamos al usuario a la página de inicio de sesión
+    // Redirecciona al usuario a la página de inicio de sesión
     echo 'No tiene acceso a esta página.';
     echo '<p>Para acceder, por favor inicie sesión:</p>
     <a href="login.php">Iniciar sesión</a>
