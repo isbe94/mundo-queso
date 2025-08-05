@@ -149,7 +149,7 @@ include BASE_PATH . '/includes/header.php';
                     </a>
                 </div>
 
-                <div class="row g-4 justify-content-center">
+                <div class="row g-4">
                     <?php if (count($publicacionesUsuario) > 0): ?>
                         <?php foreach ($publicacionesUsuario as $publicacion): ?>
                             <?php

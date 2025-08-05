@@ -256,7 +256,6 @@ h6 {
 
 .card-img-top {
   height: 200px;
-  /* o el alto que prefieras */
   object-fit: cover;
   width: 100%;
 }
