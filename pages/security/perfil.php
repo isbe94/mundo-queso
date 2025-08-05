@@ -149,13 +149,13 @@ include BASE_PATH . '/includes/header.php';
                     </a>
                 </div>
 
-                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                <div class="row g-4 justify-content-center">
                     <?php if (count($publicacionesUsuario) > 0): ?>
                         <?php foreach ($publicacionesUsuario as $publicacion): ?>
                             <?php
                             $fechaFormateada = tiempo_transcurrido($publicacion['fecha']);
                             ?>
-                            <div class="col">
+                            <div class="col card-wrapper">
                                 <div class="publication-card h-100">
                                     <div class="publication-image">
                                         <img src="<?= BASE_URL ?>assets/img/<?= htmlspecialchars($publicacion['imagen']) ?>" alt="<?= htmlspecialchars($publicacion['titulo']) ?>">

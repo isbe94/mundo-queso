@@ -56,10 +56,10 @@ $publicacionesMostradas = array_slice($publicaciones, $inicio, $porPagina);
                 // HEREDOC para un HTML más limpio
                 echo <<<HTML
                 <div class="col publicacion">
-                    <div class="card h-100 shadow-sm">
+                    <div class="card h-100 d-flex flex-column shadow-sm">
                         <img src="assets/img/{$imagen}" class="card-img-top" alt="Imagen de {$titulo}">
                         
-                        <div class="card-body d-flex flex-column">
+                        <div class="card-body d-flex flex-column flex-grow-1">
                             <h5 class="card-title">{$titulo}</h5>
                             <p class="card-text">{$descripcion}</p>
 

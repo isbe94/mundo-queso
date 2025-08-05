@@ -254,6 +254,12 @@ h6 {
   padding: 1.5rem;
 }
 
+.card-img-top {
+  height: 200px; /* o el alto que prefieras */
+  object-fit: cover;
+  width: 100%;
+}
+
 /* Imágenes */
 .img-fluid {
   border-radius: var(--border-radius);
